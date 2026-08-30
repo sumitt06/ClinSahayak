@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "MediKiosk Patient Intake"
+description = "An accessibility-first clinical intake prototype for Indian OPDs, guiding patients through a simple kiosk flow and preparing a structured summary for doctors."
+version = "1.0.0"
+id = "artifacts/medikiosk"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19941
+
+[services.development]
+run = "pnpm --filter @workspace/medikiosk run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/medikiosk", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/medikiosk/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19941"
+BASE_PATH = "/"

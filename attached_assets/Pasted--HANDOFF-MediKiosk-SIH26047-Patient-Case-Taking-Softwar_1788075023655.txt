@@ -1,0 +1,700 @@
+# HANDOFF — MediKiosk / SIH26047 Patient Case-Taking Software
+
+I am switching from ChatGPT to Claude because of conversation/message limits.
+
+**DO NOT START THE PROJECT FROM SCRATCH.**
+I already have an existing React/Vite frontend and have already worked on the MediKiosk prototype. Your job is to **continue from the existing code**, not rebuild it.
+
+I will provide my current project/code to you. First inspect what already exists and understand it before suggesting changes.
+
+---
+
+# 1. PROJECT
+
+We are building a college-level prototype for:
+
+**SIH26047 — Patient Case-Taking Software**
+
+Project name:
+
+# MediKiosk
+
+The core problem:
+
+Indian hospital OPDs are overcrowded and doctors have very limited consultation time. A significant part of the consultation is spent collecting patient history and reviewing previous documents.
+
+Our solution collects structured patient history **before the doctor consultation** and presents it to the doctor in a structured format.
+
+---
+
+# 2. OUR SELECTED SOLUTION
+
+We decided to build three interfaces around the same workflow:
+
+### 1. MediKiosk
+For:
+- elderly patients
+- low-literacy patients
+- patients uncomfortable with smartphones
+- first-time digital users
+
+The interface should have:
+- large buttons
+- simple language
+- Hindi/English
+- touch-friendly controls
+- voice-style interaction
+- minimal typing
+- audio-friendly prompts
+
+### 2. MediWeb
+For:
+- literate adults
+- digitally comfortable users
+
+It should provide the same basic clinical history workflow but with a normal modern web interface.
+
+### 3. Doctor Portal
+For doctors.
+
+It should show:
+- patient details
+- chief complaint
+- history
+- symptoms
+- previous medical information
+- reports
+- priority alerts
+- structured clinical summary
+- edit/confirm controls
+
+---
+
+# 3. VERY IMPORTANT — CURRENT DEVELOPMENT STATUS
+
+The React/Vite project is **already created**.
+
+The MediKiosk frontend is **already partially implemented**.
+
+We have already worked on the patient clinical-question flow.
+
+There is already logic for:
+- questions
+- answers
+- follow-up questions
+- dynamically showing relevant questions
+
+We specifically encountered a problem where a question could appear again **after the patient had already answered it**.
+
+We discussed fixing the filtering logic using:
+
+```js
+// Don't show a question after it has already been answered
+if (patient.answers?.[question.id]) {
+  return false;
+}
+```
+
+The intention was to put this condition as the **first condition** inside the existing question filter.
+
+The existing implementation should therefore be inspected and preserved rather than replaced.
+
+---
+
+# 4. EXISTING WORK WE MUST PRESERVE
+
+The current project already has clinical questioning behavior.
+
+For example, we previously demonstrated a flow like:
+
+```text
+Stomach Pain
+     ↓
+Does eating make the pain worse?
+     ↓
+Yes / No / Sometimes / Not sure
+```
+
+We also worked with follow-up questions such as:
+
+```text
+Does anything make the pain better or worse?
+
+Yes
+No
+Not sure
+```
+
+The issue was that after selecting an answer, the same question could appear again.
+
+This is a key part of the existing implementation.
+
+**Do not throw away the current question engine.**
+
+Understand it first and modify only what is necessary.
+
+---
+
+# 5. DEMO CONDITIONS
+
+For the final college presentation we decided to demonstrate three clinical pathways:
+
+## A. Chest Pain
+
+This is the MAIN demonstration.
+
+Questions should cover:
+
+- onset/duration
+- location
+- severity
+- radiation
+- aggravating factors
+- relieving factors
+- breathlessness
+- sweating
+- nausea
+
+Example demo patient:
+
+```text
+Rajesh Kumar
+52
+Male
+
+Chest pain
+3 days
+Severe
+Left-sided
+Radiating to left arm
+Breathlessness: Yes
+Sweating: Yes
+```
+
+This should produce:
+
+# PRIORITY REVIEW
+
+Important:
+
+This is **NOT a diagnosis**.
+
+Never show:
+
+> Patient has heart attack.
+
+Instead show:
+
+> Priority Review Required
+
+or:
+
+> The patient's responses indicate symptoms requiring prompt clinical attention. Please alert clinical staff.
+
+---
+
+# 6. ABDOMINAL PAIN
+
+Questions can include:
+
+- when did pain start?
+- where is the pain?
+- severity?
+- does eating affect it?
+- vomiting?
+- diarrhea?
+- constipation?
+- fever?
+- blood in stool?
+
+This pathway demonstrates adaptive symptom questioning.
+
+---
+
+# 7. DIABETES
+
+Questions can include:
+
+- diagnosed with diabetes?
+- since when?
+- current medication?
+- excessive thirst?
+- frequent urination?
+- last blood sugar test?
+- HbA1c?
+- family history?
+
+This pathway demonstrates:
+- chronic disease history
+- medication history
+- previous reports
+- medical timeline
+
+---
+
+# 8. MOCK DOCUMENT SCANNER
+
+We are NOT building real OCR right now.
+
+For the prototype, simulate:
+
+```text
+Previous Medical Records
+
+[ Scan Document ]
+
+[ Upload Document ]
+
+[ Skip for now ]
+```
+
+Then:
+
+```text
+Scanner Ready
+
+Place your document under the scanner.
+
+Scanning...
+
+████████████████ 100%
+
+✓ Document captured
+✓ Document identified
+✓ Values extracted
+✓ Date identified
+```
+
+Then show sample data such as:
+
+```text
+Lab Report
+12 Aug 2026
+
+HbA1c          8.2%
+Fasting Sugar  154 mg/dL
+
+Medication
+Metformin 500 mg
+
+[ Confirm ]
+```
+
+If asked whether OCR is real:
+
+> "For this frontend prototype, we're simulating the scanner/OCR result with sample data. The production version would connect a scanner/camera to a multilingual medical OCR pipeline."
+
+Do NOT claim the prototype has real OCR.
+
+---
+
+# 9. CLINICAL SUMMARY
+
+The final summary should be structured rather than one giant AI-generated paragraph.
+
+Example:
+
+```text
+Clinical History
+
+PATIENT
+Rajesh Kumar · 52 · Male
+
+CHIEF COMPLAINT
+Chest pain × 3 days
+
+HISTORY OF PRESENT ILLNESS
+• Severe
+• Left-sided
+• Radiating to left arm
+• Worse with activity
+
+ASSOCIATED SYMPTOMS
+• Breathlessness
+• Sweating
+
+PAST HISTORY
+Diabetes
+
+MEDICATION
+Metformin 500 mg
+
+PREVIOUS INVESTIGATION
+HbA1c — 8.2%
+
+⚠ PRIORITY REVIEW
+
+[ Edit ] [ Confirm ]
+```
+
+The doctor must retain control.
+
+---
+
+# 10. DOCTOR PORTAL
+
+The doctor dashboard should eventually show something like:
+
+```text
+MediKiosk Clinical Portal
+
+Dashboard
+Patients
+Priority Cases
+Reports
+
+Today's Patients
+
+Rajesh Kumar
+52 · Male
+
+Chest pain
+
+⚠ Priority Review
+
+[ View Case ]
+```
+
+Case view:
+
+```text
+Rajesh Kumar
+52 · Male
+
+⚠ Priority Review
+
+Chief Complaint
+Chest pain × 3 days
+
+Associated symptoms
+• Breathlessness
+• Sweating
+
+Past history
+• Diabetes
+
+Previous investigation
+• HbA1c 8.2%
+
+[ Edit ] [ Confirm ]
+```
+
+---
+
+# 11. KIOSK VS WEB
+
+The Kiosk is the **hero feature** of the presentation.
+
+We are NOT planning to build actual kiosk hardware.
+
+For presentation:
+
+- run MediKiosk fullscreen on laptop/monitor
+- if touchscreen is available, demonstrate touch
+- otherwise mouse is acceptable
+
+We can explain:
+
+> "The current demonstration is a software prototype running on a standard display. The UI is designed for touchscreen deployment with large touch targets and minimal typing."
+
+MediWeb is secondary.
+
+Do not spend most of the remaining development time on MediWeb.
+
+---
+
+# 12. CURRENT TECHNICAL SCOPE
+
+For this college prototype:
+
+### Use
+
+- React
+- Vite
+- JavaScript
+- CSS
+- local/mock data
+
+### DO NOT BUILD NOW
+
+- backend
+- MongoDB
+- PostgreSQL
+- authentication
+- real ABHA integration
+- FHIR integration
+- ABDM integration
+- HIS integration
+- real OCR
+- real ASR
+- production LLM
+- cloud infrastructure
+- complex AI pipeline
+
+The purpose is to create a convincing **frontend demonstration**.
+
+---
+
+# 13. WHAT THE PROTOTYPE SHOULD DEMONSTRATE
+
+The most important complete flow is:
+
+```text
+Patient arrives
+      ↓
+MediKiosk
+      ↓
+Language
+      ↓
+Patient Details
+      ↓
+Complaint
+      ↓
+Adaptive Questions
+      ↓
+Red Flag / Priority Review
+      ↓
+Previous Report
+      ↓
+Clinical Summary
+      ↓
+Doctor Portal
+      ↓
+Doctor Reviews + Confirms
+```
+
+If this flow works smoothly, the prototype is successful.
+
+---
+
+# 14. IMPORTANT USP
+
+Our USP is NOT simply:
+
+> AI + OCR + Chatbot + ABHA
+
+Our USP:
+
+> **An accessibility-first, multi-channel clinical intake workflow where the same structured history can be collected through an assisted kiosk for elderly/low-literacy patients or through a self-service web interface for digitally comfortable patients, and then presented to the doctor as a structured clinical summary with priority alerts and source-linked information.**
+
+The innovation is the complete workflow rather than one individual AI model.
+
+---
+
+# 15. IMPORTANT HONESTY RULE
+
+Never pretend a mocked feature is real.
+
+If something isn't implemented, say:
+
+> "Currently this is demonstrated using mock/local data. In the production version, it would be implemented using..."
+
+For example:
+
+### AI
+
+Current prototype:
+- predefined clinical pathways/rules
+
+Production:
+- multilingual ASR
+- NLP
+- clinical dialogue engine
+- summarization
+
+### OCR
+
+Current:
+- simulated sample extraction
+
+Production:
+- multilingual medical OCR
+- entity extraction
+
+### ABDM
+
+Current:
+- not implemented
+
+Production:
+- ABDM/FHIR-compatible integration
+
+### Database
+
+Current:
+- local/mock data
+
+Production:
+- secure backend database
+
+---
+
+# 16. CROSS-QUESTIONING PREPARATION
+
+The judges may ask:
+
+### "Why not just use a mobile app?"
+
+Answer:
+
+> "A mobile-only solution can exclude elderly, low-literacy and first-time users. MediKiosk provides an assisted entry point while MediWeb serves digitally comfortable users."
+
+### "Is it diagnosing?"
+
+> "No. It collects and structures clinical history. Priority alerts are based on predefined red-flag responses. Final diagnosis and clinical decisions remain with the doctor."
+
+### "What if AI is wrong?"
+
+> "The summary is a draft. The doctor can review, edit and confirm it."
+
+### "Why no backend?"
+
+> "The current prototype focuses on validating the patient-to-doctor workflow. Backend persistence and integration are the next implementation layer."
+
+### "Is OCR real?"
+
+> "The prototype demonstrates the workflow using sample extracted data. Production would connect a medical OCR pipeline."
+
+### "Why only three diseases?"
+
+> "We selected three representative pathways for the prototype. The architecture can be extended to additional clinical pathways."
+
+### "What happens if the patient can't speak?"
+
+> "Voice is optional. Every question can also be answered through touch."
+
+### "What if the hospital is noisy?"
+
+> "Touch remains available as a fallback. Production deployment can also use noise-robust speech recognition."
+
+### "Are you replacing nurses?"
+
+> "No. The system handles repetitive structured intake while clinical staff remain available for patients requiring assistance or clinical judgment."
+
+---
+
+# 17. UI DESIGN
+
+The UI must NOT look like a generic AI-generated template.
+
+Avoid:
+- excessive gradients
+- excessive glassmorphism
+- giant robot/AI graphics
+- unnecessary animations
+- fake statistics
+- fake hospital logos
+- generic chatbot appearance
+
+Prefer:
+- clean healthcare UI
+- consistent spacing
+- accessible typography
+- large kiosk controls
+- clear icons
+- professional doctor dashboard
+- realistic medical information
+- subtle animations
+- clear progress indicators
+
+The kiosk should feel simple enough for an elderly patient.
+
+The doctor portal should feel information-dense and professional.
+
+---
+
+# 18. DEVELOPMENT PRIORITY
+
+Because I have very little time, prioritize in this order:
+
+1. Fix/preserve the existing question engine
+2. Complete Kiosk flow
+3. Chest Pain pathway
+4. Priority Review
+5. Clinical Summary
+6. Doctor Portal
+7. Mock document scan
+8. Diabetes pathway
+9. Abdominal Pain pathway
+10. MediWeb
+11. Final UI polish
+
+If time becomes extremely limited:
+
+**STOP adding features and make this flow perfect:**
+
+```text
+Kiosk
+↓
+Chest Pain
+↓
+Adaptive Questions
+↓
+Priority Alert
+↓
+Summary
+↓
+Doctor Portal
+```
+
+A polished working flow is more valuable than a half-built system with many features.
+
+---
+
+# 19. HOW YOU SHOULD HELP ME
+
+I am a student and I have almost no time.
+
+Therefore:
+
+- Give me ONE small actionable step at a time.
+- Don't dump 20 steps at once.
+- Don't restart the project.
+- Don't replace working code unnecessarily.
+- First inspect my existing code.
+- Tell me exactly which file to open.
+- Tell me exactly what to change.
+- Give complete code only when necessary.
+- Keep dependencies minimal.
+- Prefer simple React state/local data.
+- Prioritize reliability over complexity.
+- Keep the existing UI unless there is a good reason to change it.
+- Don't introduce backend work.
+- Don't make me implement real AI/OCR/ABDM right now.
+- Always consider how the feature will look during the college presentation.
+- Keep judge cross-questioning in mind.
+
+When I send code, do not immediately rewrite everything.
+
+First tell me:
+
+1. What the current code is doing.
+2. What is already correct.
+3. What exact issue needs fixing.
+4. The smallest change required.
+
+Then wait for my confirmation/test result before moving to the next major step.
+
+---
+
+# 20. VERY IMPORTANT — CONTINUE FROM EXISTING PROJECT
+
+I am switching from ChatGPT to Claude.
+
+The previous ChatGPT conversation already contained development work, screenshots and debugging.
+
+Therefore:
+
+**DO NOT SAY "Let's create a new Vite project."**
+
+**DO NOT START FROM ZERO.**
+
+Instead:
+
+> Inspect the existing project/code I provide and continue from its current state.
+
+The current project already has the MediKiosk frontend and clinical question/follow-up logic.
+
+The immediate goal is to make the existing prototype **presentation-ready**, not to rebuild it.
+
+Start by asking me to provide/show the **current project files/code**, then inspect them and tell me exactly where we currently stand.
