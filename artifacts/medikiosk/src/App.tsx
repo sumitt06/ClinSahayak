@@ -14,6 +14,7 @@ import {
   Clock3,
   FileText,
   HeartPulse,
+  KeyRound,
   Languages,
   LayoutDashboard,
   Mic,
@@ -21,7 +22,9 @@ import {
   ScanLine,
   Search,
   ShieldCheck,
+  Smartphone,
   Stethoscope,
+  UserPlus,
   UserRound,
   Volume2,
   X,
@@ -97,7 +100,7 @@ function Brand({ inverse = false }: { inverse?: boolean }) {
         <span className="absolute h-5 w-1.5 rounded-full bg-current" />
         <span className="absolute h-1.5 w-5 rounded-full bg-current" />
       </span>
-      <span className="font-display text-[1.18rem] font-bold tracking-[-.04em]">MediKiosk</span>
+      <span className="font-display text-[1.18rem] font-bold tracking-[-.04em]">CLINBRIDGE</span>
     </span>
   );
 }
@@ -158,11 +161,32 @@ function Landing({ go }: { go: (path: string) => void }) {
       <main className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-14 pt-8 md:grid-cols-[1.03fr_.97fr] md:px-10 md:pb-24 md:pt-16">
         <section className="animate-enter-up">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#b9d8d1] bg-[#e7f3ef] px-3 py-1.5 text-xs font-bold tracking-wide text-[#16665f]"><span className="h-2 w-2 rounded-full bg-[#75cdb9]" /> A calmer start to your OPD visit</div>
-          <h1 className="text-balance max-w-2xl font-display text-[clamp(3.2rem,8vw,6.7rem)] font-bold leading-[.93] tracking-[-.075em] text-[#173543]">Tell us what<br /><span className="text-[#16665f]">you need today.</span></h1>
-          <p className="mt-7 max-w-lg text-lg leading-8 text-[#536c71]">MediKiosk helps your care team hear the important parts first — in a few clear, respectful steps.</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button onClick={() => go('/kiosk')} className="min-h-14 px-7 text-base" data-testid="button-start-intake">Start patient intake <ArrowRight size={19} /></Button>
-            <button onClick={() => go('/mediweb')} data-testid="button-learn-mediweb" className="focus-ring inline-flex min-h-14 items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-[#42666a] hover:bg-[#e9eee9]">How it works <ChevronRight size={17} /></button>
+          <h1 className="text-balance max-w-2xl font-display text-[clamp(3.2rem,8vw,6.7rem)] font-bold leading-[.93] tracking-[-.075em] text-[#173543]">One bridge for<br /><span className="text-[#16665f]">better first notes.</span></h1>
+          <p className="mt-7 max-w-lg text-lg leading-8 text-[#536c71]">CLINBRIDGE connects patients and doctors through one clearer clinical history workflow — whether you prefer a kiosk, a web experience, or a doctor workspace.</p>
+          <div className="mt-9">
+            <p className="mb-3 text-sm font-bold text-[#35585e]">Choose how you want to continue</p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <button onClick={() => go('/account')} data-testid="button-create-account" className="focus-ring group flex min-h-20 items-center gap-3 rounded-2xl border-2 border-[#16665f] bg-[#e8f4f0] px-4 text-left transition hover:-translate-y-0.5">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#16665f] text-[#f7f8f3]"><UserPlus size={20} /></span>
+                <span className="flex-1"><span className="block font-display text-sm font-bold text-[#173543]">Create account</span><span className="mt-1 block text-xs text-[#5d7779]">Set up your patient profile</span></span>
+                <ArrowRight size={17} className="text-[#16665f] transition group-hover:translate-x-1" />
+              </button>
+              <button onClick={() => go('/auth/medikiosk')} data-testid="button-open-kiosk-login" className="focus-ring group flex min-h-20 items-center gap-3 rounded-2xl border border-[#cedfd8] bg-[#f9fbf7] px-4 text-left transition hover:-translate-y-0.5 hover:border-[#8fc5b8]">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#dcefe9] text-[#16665f]"><HeartPulse size={20} /></span>
+                <span className="flex-1"><span className="block font-display text-sm font-bold text-[#173543]">MediKiosk</span><span className="mt-1 block text-xs text-[#5d7779]">Assisted voice + touch intake</span></span>
+                <ArrowRight size={17} className="text-[#16665f] transition group-hover:translate-x-1" />
+              </button>
+              <button onClick={() => go('/auth/mediweb')} data-testid="button-open-mediweb-login" className="focus-ring group flex min-h-20 items-center gap-3 rounded-2xl border border-[#cedfd8] bg-[#f9fbf7] px-4 text-left transition hover:-translate-y-0.5 hover:border-[#8fc5b8]">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#e8efea] text-[#16665f]"><FileText size={20} /></span>
+                <span className="flex-1"><span className="block font-display text-sm font-bold text-[#173543]">MediWeb</span><span className="mt-1 block text-xs text-[#5d7779]">Self-service web intake</span></span>
+                <ArrowRight size={17} className="text-[#16665f] transition group-hover:translate-x-1" />
+              </button>
+              <button onClick={() => go('/doctor')} data-testid="button-open-doctor-dashboard" className="focus-ring group flex min-h-20 items-center gap-3 rounded-2xl border border-[#cedfd8] bg-[#f9fbf7] px-4 text-left transition hover:-translate-y-0.5 hover:border-[#8fc5b8]">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#fff0db] text-[#9c632d]"><Stethoscope size={20} /></span>
+                <span className="flex-1"><span className="block font-display text-sm font-bold text-[#173543]">Doctor dashboard</span><span className="mt-1 block text-xs text-[#5d7779]">Review structured histories</span></span>
+                <ArrowRight size={17} className="text-[#16665f] transition group-hover:translate-x-1" />
+              </button>
+            </div>
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-[#668082]"><span className="flex items-center gap-2"><Volume2 size={15} /> English + Hindi</span><span className="flex items-center gap-2"><UserRound size={15} /> No medical jargon</span><span className="flex items-center gap-2"><Clock3 size={15} /> About 3 minutes</span></div>
         </section>
@@ -181,6 +205,124 @@ function Landing({ go }: { go: (path: string) => void }) {
       <div className="border-t border-[#dce5df] bg-[#edf3ed] px-5 py-5 text-center text-xs text-[#607979]">Designed for busy Indian OPDs · This college prototype simulates voice, OCR and record lookup.</div>
     </div>
   );
+}
+
+type AuthChannel = 'medikiosk' | 'mediweb';
+type AccountProfile = { name: string; age: string; phone: string; abhaId: string; language: 'English' | 'हिन्दी' };
+
+function AuthPage({ channel, go, onVerified }: { channel: AuthChannel; go: (path: string) => void; onVerified: () => void }) {
+  const [method, setMethod] = useState<'mobile' | 'abha'>('mobile');
+  const [identifier, setIdentifier] = useState('');
+  const [otp, setOtp] = useState('');
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  const isKiosk = channel === 'medikiosk';
+
+  const sendOtp = () => {
+    if (!identifier.trim()) {
+      setError(`Enter your ${method === 'mobile' ? 'mobile number' : 'ABHA ID'} to continue.`);
+      return;
+    }
+    setError('');
+    setSent(true);
+  };
+
+  const verifyOtp = () => {
+    if (otp !== '123456') {
+      setError('Use the six-digit demo OTP shown below.');
+      return;
+    }
+    onVerified();
+  };
+
+  return <div className="kiosk-shell min-h-[100dvh]">
+    <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 md:px-10">
+      <button onClick={() => go('/')} data-testid="button-auth-home" className="focus-ring rounded-lg"><Brand /></button>
+      <span className="rounded-full bg-[#e5f2ee] px-3 py-1.5 text-xs font-bold text-[#28675f]">{isKiosk ? 'MediKiosk access' : 'MediWeb access'}</span>
+    </nav>
+    <main className="mx-auto max-w-5xl px-5 pb-16 pt-8 md:px-10 md:pt-14">
+      <button onClick={() => go('/')} data-testid="button-auth-back" className="focus-ring mb-8 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-bold text-[#607879] hover:bg-[#e9eee9]"><ArrowLeft size={17} /> Back to CLINBRIDGE</button>
+      <div className="grid items-start gap-12 md:grid-cols-[.85fr_1.15fr]">
+        <div className="max-w-md">
+          <p className="text-sm font-bold text-[#16665f]">{isKiosk ? 'A simpler way in' : 'Your history, ready when you are'}</p>
+          <h1 className="mt-3 font-display text-4xl font-bold leading-tight tracking-[-.06em] text-[#173543] md:text-5xl">{isKiosk ? 'Sign in to your patient kiosk.' : 'Sign in to MediWeb.'}</h1>
+          <p className="mt-4 text-base leading-7 text-[#5c7478]">{isKiosk ? 'Use your mobile number or ABHA ID. We’ll guide you through the next step with voice-friendly prompts.' : 'Use your mobile number or ABHA ID to continue your self-service intake.'}</p>
+          <div className="mt-8 rounded-2xl border border-[#cbded6] bg-[#e8f4f0] p-4 text-sm leading-6 text-[#315d5c]"><ShieldCheck className="mb-2 text-[#16665f]" size={18} />Your details are only being used for this local prototype. No real OTP is sent.</div>
+        </div>
+        <section className="rounded-[2rem] border border-[#cfdfd8] bg-[#f9fbf7] p-6 shadow-[0_18px_40px_rgba(22,73,73,.08)] md:p-8">
+          {!sent ? <>
+            <p className="text-xs font-bold uppercase tracking-[.14em] text-[#6c8585]">Patient login</p>
+            <div className="mt-6 grid grid-cols-2 gap-2 rounded-xl bg-[#edf3ed] p-1">
+              <button onClick={() => { setMethod('mobile'); setError(''); }} data-testid="button-login-mobile" className={`focus-ring rounded-lg px-3 py-3 text-sm font-bold ${method === 'mobile' ? 'bg-[#f9fbf7] text-[#16665f] shadow-sm' : 'text-[#607879]'}`}><Smartphone className="mx-auto mb-1" size={18} />Mobile number</button>
+              <button onClick={() => { setMethod('abha'); setError(''); }} data-testid="button-login-abha" className={`focus-ring rounded-lg px-3 py-3 text-sm font-bold ${method === 'abha' ? 'bg-[#f9fbf7] text-[#16665f] shadow-sm' : 'text-[#607879]'}`}><KeyRound className="mx-auto mb-1" size={18} />ABHA ID</button>
+            </div>
+            <label className="mt-7 block"><span className="mb-2 block text-sm font-bold text-[#35585e]">{method === 'mobile' ? 'Mobile number' : 'ABHA ID'}</span><input autoFocus value={identifier} onChange={e => setIdentifier(e.target.value)} data-testid="input-login-identifier" type={method === 'mobile' ? 'tel' : 'text'} placeholder={method === 'mobile' ? 'Enter 10-digit mobile number' : 'Enter your ABHA ID'} className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-base text-[#173543] outline-none focus:border-[#16665f]" /></label>
+            {error && <p className="mt-3 text-sm font-bold text-[#a34234]">{error}</p>}
+            <Button onClick={sendOtp} className="mt-7 w-full" data-testid="button-send-otp">Send OTP <ArrowRight size={18} /></Button>
+            <p className="mt-5 text-center text-xs text-[#718788]">New to CLINBRIDGE? <button onClick={() => go('/account')} className="font-bold text-[#16665f] underline-offset-2 hover:underline">Create an account</button></p>
+          </> : <>
+            <p className="text-xs font-bold uppercase tracking-[.14em] text-[#6c8585]">Verify your identity</p>
+            <h2 className="mt-3 font-display text-2xl font-bold tracking-[-.04em] text-[#173543]">Enter the six-digit OTP</h2>
+            <p className="mt-3 text-sm leading-6 text-[#5c7478]">A prototype code would be sent to <strong className="text-[#35585e]">{identifier}</strong>.</p>
+            <div className="mt-6 rounded-xl border border-[#e3c7aa] bg-[#fff8ea] p-4 text-sm leading-6 text-[#6f665c]"><strong className="text-[#98612f]">Demo OTP:</strong> 123456</div>
+            <label className="mt-6 block"><span className="mb-2 block text-sm font-bold text-[#35585e]">One-time password</span><input autoFocus value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} data-testid="input-login-otp" inputMode="numeric" maxLength={6} placeholder="123456" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-center text-xl font-bold tracking-[.35em] text-[#173543] outline-none focus:border-[#16665f]" /></label>
+            {error && <p className="mt-3 text-sm font-bold text-[#a34234]">{error}</p>}
+            <Button onClick={verifyOtp} className="mt-7 w-full" data-testid="button-verify-otp">Verify and continue <Check size={18} /></Button>
+            <button onClick={() => { setSent(false); setOtp(''); setError(''); }} data-testid="button-change-login" className="focus-ring mt-4 block w-full rounded-lg py-2 text-center text-sm font-bold text-[#607879] hover:bg-[#e9eee9]">Use a different sign-in method</button>
+          </>}
+        </section>
+      </div>
+    </main>
+  </div>;
+}
+
+function AccountPage({ go, onComplete }: { go: (path: string) => void; onComplete: (profile: AccountProfile) => void }) {
+  const [profile, setProfile] = useState<AccountProfile>({ name: '', age: '', phone: '', abhaId: '', language: 'English' });
+  const [otp, setOtp] = useState('');
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  const ready = profile.name.trim().length > 1 && Number(profile.age) > 0 && profile.phone.trim().length >= 10 && profile.abhaId.trim().length > 3;
+  const submit = () => {
+    if (!ready) {
+      setError('Please complete your name, age, mobile number, and ABHA ID.');
+      return;
+    }
+    setError('');
+    setSent(true);
+  };
+  const verify = () => {
+    if (otp !== '123456') {
+      setError('Use the six-digit demo OTP shown below.');
+      return;
+    }
+    onComplete(profile);
+    go('/kiosk');
+  };
+
+  return <div className="kiosk-shell min-h-[100dvh]">
+    <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 md:px-10"><button onClick={() => go('/')} data-testid="button-account-home" className="focus-ring rounded-lg"><Brand /></button><span className="rounded-full bg-[#e5f2ee] px-3 py-1.5 text-xs font-bold text-[#28675f]">Patient account</span></nav>
+    <main className="mx-auto max-w-5xl px-5 pb-16 pt-8 md:px-10 md:pt-14">
+      <button onClick={() => go('/')} data-testid="button-account-back" className="focus-ring mb-8 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-bold text-[#607879] hover:bg-[#e9eee9]"><ArrowLeft size={17} /> Back to CLINBRIDGE</button>
+      <div className="grid items-start gap-12 md:grid-cols-[.8fr_1.2fr]">
+        <div className="max-w-md"><p className="text-sm font-bold text-[#16665f]">Start once, continue anywhere</p><h1 className="mt-3 font-display text-4xl font-bold leading-tight tracking-[-.06em] text-[#173543] md:text-5xl">Create your CLINBRIDGE account.</h1><p className="mt-4 text-base leading-7 text-[#5c7478]">Your account lets you use MediKiosk or MediWeb with the same patient profile.</p><div className="mt-8 rounded-2xl border border-[#cbded6] bg-[#e8f4f0] p-4 text-sm leading-6 text-[#315d5c]"><ShieldCheck className="mb-2 text-[#16665f]" size={18} />For this prototype, account details stay in local browser state and are not sent to a real service.</div></div>
+        <section className="rounded-[2rem] border border-[#cfdfd8] bg-[#f9fbf7] p-6 shadow-[0_18px_40px_rgba(22,73,73,.08)] md:p-8">
+          {!sent ? <>
+            <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#6c8585]">New patient profile</p><h2 className="mt-2 font-display text-2xl font-bold tracking-[-.04em] text-[#173543]">Tell us the basics</h2></div><UserPlus className="text-[#16665f]" size={24} /></div>
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
+              <label className="sm:col-span-2"><span className="mb-2 block text-sm font-bold text-[#35585e]">Full name <span className="text-[#c65b45]">*</span></span><input autoFocus value={profile.name} onChange={e => setProfile({ ...profile, name: e.target.value })} data-testid="input-account-name" placeholder="For example, Rajesh Kumar" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-base text-[#173543] outline-none focus:border-[#16665f]" /></label>
+              <label><span className="mb-2 block text-sm font-bold text-[#35585e]">Age <span className="text-[#c65b45]">*</span></span><input type="number" min="1" max="120" value={profile.age} onChange={e => setProfile({ ...profile, age: e.target.value })} data-testid="input-account-age" placeholder="Age in years" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-base text-[#173543] outline-none focus:border-[#16665f]" /></label>
+              <label><span className="mb-2 block text-sm font-bold text-[#35585e]">Mobile number <span className="text-[#c65b45]">*</span></span><input type="tel" value={profile.phone} onChange={e => setProfile({ ...profile, phone: e.target.value })} data-testid="input-account-mobile" placeholder="10-digit mobile number" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-base text-[#173543] outline-none focus:border-[#16665f]" /></label>
+              <label className="sm:col-span-2"><span className="mb-2 block text-sm font-bold text-[#35585e]">ABHA ID <span className="text-[#c65b45]">*</span></span><input value={profile.abhaId} onChange={e => setProfile({ ...profile, abhaId: e.target.value })} data-testid="input-account-abha" placeholder="Enter your ABHA ID" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-base text-[#173543] outline-none focus:border-[#16665f]" /></label>
+            </div>
+            <fieldset className="mt-7"><legend className="mb-3 text-sm font-bold text-[#35585e]">Preferred language</legend><div className="grid grid-cols-2 gap-3"><button type="button" onClick={() => setProfile({ ...profile, language: 'English' })} data-testid="button-account-language-english" className={`focus-ring rounded-xl border-2 p-4 text-left transition ${profile.language === 'English' ? 'border-[#16665f] bg-[#e8f4f0]' : 'border-[#cfdfd8] bg-[#fbfcf7]'}`}><span className="font-display font-bold text-[#173543]">English</span><span className="mt-1 block text-xs text-[#6c8585]">Continue in English</span></button><button type="button" onClick={() => setProfile({ ...profile, language: 'हिन्दी' })} data-testid="button-account-language-hindi" className={`focus-ring rounded-xl border-2 p-4 text-left transition ${profile.language === 'हिन्दी' ? 'border-[#16665f] bg-[#e8f4f0]' : 'border-[#cfdfd8] bg-[#fbfcf7]'}`}><span className="font-display font-bold text-[#173543]">हिन्दी</span><span className="mt-1 block text-xs text-[#6c8585]">हिन्दी में जारी रखें</span></button></div></fieldset>
+            {error && <p className="mt-4 text-sm font-bold text-[#a34234]">{error}</p>}<Button onClick={submit} className="mt-7 w-full" data-testid="button-account-continue">Continue to OTP <ArrowRight size={18} /></Button>
+          </> : <>
+            <p className="text-xs font-bold uppercase tracking-[.14em] text-[#6c8585]">Verify your mobile</p><h2 className="mt-3 font-display text-2xl font-bold tracking-[-.04em] text-[#173543]">Finish creating your account</h2><p className="mt-3 text-sm leading-6 text-[#5c7478]">We would send a one-time password to <strong className="text-[#35585e]">{profile.phone}</strong>.</p><div className="mt-6 rounded-xl border border-[#e3c7aa] bg-[#fff8ea] p-4 text-sm leading-6 text-[#6f665c]"><strong className="text-[#98612f]">Demo OTP:</strong> 123456</div><label className="mt-6 block"><span className="mb-2 block text-sm font-bold text-[#35585e]">One-time password</span><input autoFocus value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} data-testid="input-account-otp" inputMode="numeric" maxLength={6} placeholder="123456" className="focus-ring h-14 w-full rounded-xl border border-[#bfd7d0] bg-[#fbfcf7] px-4 text-center text-xl font-bold tracking-[.35em] text-[#173543] outline-none focus:border-[#16665f]" /></label>{error && <p className="mt-3 text-sm font-bold text-[#a34234]">{error}</p>}<Button onClick={verify} className="mt-7 w-full" data-testid="button-account-verify">Verify and open MediKiosk <Check size={18} /></Button><button onClick={() => { setSent(false); setOtp(''); setError(''); }} data-testid="button-account-edit" className="focus-ring mt-4 block w-full rounded-lg py-2 text-center text-sm font-bold text-[#607879] hover:bg-[#e9eee9]">Edit account details</button>
+          </>}
+        </section>
+      </div>
+    </main>
+  </div>;
 }
 
 function LanguageStep({ onChoose }: { onChoose: (language: 'English' | 'हिन्दी') => void }) {
@@ -236,7 +378,7 @@ function KioskFlow({ state, setState, go }: { state: FlowState; setState: (s: Fl
   return <KioskLayout step={step} onExit={() => go('/')}><button onClick={() => step !== 'language' && next(step === 'scan' ? 'review' : step === 'summary' ? 'scan' : 'language')} data-testid="button-flow-back" className={`focus-ring mb-6 inline-flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-bold text-[#607879] hover:bg-[#e9eee9] ${step === 'language' ? 'invisible' : ''}`}><ArrowLeft size={17} /> Back</button>{step === 'language' && <LanguageStep onChoose={language => { patch({ patient: { ...patient, language }, step: 'details' }); }} />}{step === 'details' && <DetailsStep name={patient.name} age={patient.age} phone={patient.phone} setName={name => patch({ patient: { ...patient, name } })} setAge={age => patch({ patient: { ...patient, age } })} setPhone={phone => patch({ patient: { ...patient, phone } })} onNext={() => next('complaint')} />}{step === 'complaint' && <ComplaintStep pathway={pathway} setPathway={p => patch({ pathway: p })} onNext={() => next('questions')} />}{step === 'questions' && pathway && <QuestionsStep pathway={pathway} answers={answers} setAnswers={a => patch({ answers: a })} onNext={() => next('review')} />}{step === 'review' && pathway && <ReviewStep pathway={pathway} answers={answers} onNext={() => next('scan')} />}{step === 'scan' && <ScanStep onNext={() => next('summary')} />}{step === 'summary' && pathway && <SummaryView name={patient.name} age={patient.age} pathway={pathway} answers={answers} confirmed={state.confirmed} setConfirmed={confirmed => patch({ confirmed })} />}{step === 'summary' && <div className="mt-8 flex justify-end"><Button onClick={() => go('/doctor')} variant="secondary" data-testid="button-go-doctor">Open doctor portal <ArrowRight size={18} /></Button></div>}</KioskLayout>;
 }
 
-type FlowState = { step: KioskStep; patient: { name: string; age: string; phone: string; language: string }; pathway: Pathway | null; answers: Answers; confirmed: boolean };
+type FlowState = { step: KioskStep; patient: { name: string; age: string; phone: string; abhaId: string; language: string }; pathway: Pathway | null; answers: Answers; confirmed: boolean };
 
 function PortalShell({ children, go, active = 'dashboard' }: { children: ReactNode; go: (path: string) => void; active?: string }) {
   return <div className="flex min-h-[100dvh] bg-[#f2f4ee]"><aside className="hidden w-64 shrink-0 flex-col bg-[#173543] px-5 py-6 text-[#eef6ef] md:flex"><button onClick={() => go('/doctor')} data-testid="button-portal-brand" className="focus-ring mb-12 rounded-lg text-left"><Brand inverse /></button><p className="px-3 text-[10px] font-bold uppercase tracking-[.18em] text-[#82a3a1]">Workspace</p><nav className="mt-3 space-y-1"><button onClick={() => go('/doctor')} data-testid="button-nav-dashboard" className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold ${active === 'dashboard' ? 'bg-[#2a4e59] text-[#90dcca]' : 'text-[#b8cdca] hover:bg-[#213f4b]'}`}><LayoutDashboard size={18} /> Intake queue</button><button onClick={() => go('/kiosk')} data-testid="button-nav-kiosk" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold text-[#b8cdca] hover:bg-[#213f4b]"><Stethoscope size={18} /> Open kiosk</button><button onClick={() => go('/mediweb')} data-testid="button-nav-mediweb" className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold text-[#b8cdca] hover:bg-[#213f4b]"><FileText size={18} /> About MediWeb</button></nav><div className="mt-auto rounded-2xl border border-[#355660] bg-[#1f424e] p-4"><p className="text-xs font-bold text-[#90dcca]">Prototype workspace</p><p className="mt-2 text-xs leading-5 text-[#b8cdca]">Local mock data only. No live patient systems connected.</p></div></aside><div className="min-w-0 flex-1">{children}</div></div>;
@@ -261,10 +403,13 @@ function MediWeb({ go }: { go: (path: string) => void }) {
 
 function Router() {
   const [location, setLocation] = useLocation();
-  const [state, setState] = useState<FlowState>({ step: 'language', patient: { name: '', age: '', phone: '', language: 'English' }, pathway: null, answers: {}, confirmed: false });
+  const [state, setState] = useState<FlowState>({ step: 'language', patient: { name: '', age: '', phone: '', abhaId: '', language: 'English' }, pathway: null, answers: {}, confirmed: false });
   const [confirmed, setConfirmed] = useState(false);
   const go = (path: string) => { setLocation(path); };
   if (location === '/') return <Landing go={go} />;
+  if (location === '/account') return <AccountPage go={go} onComplete={profile => setState({ ...state, step: 'complaint', patient: { ...state.patient, ...profile } })} />;
+  if (location === '/auth/medikiosk') return <AuthPage channel="medikiosk" go={go} onVerified={() => { setState({ ...state, step: 'complaint' }); go('/kiosk'); }} />;
+  if (location === '/auth/mediweb') return <AuthPage channel="mediweb" go={go} onVerified={() => go('/mediweb')} />;
   if (location === '/kiosk') return <KioskFlow state={state} setState={setState} go={go} />;
   if (location === '/mediweb') return <MediWeb go={go} />;
   if (location === '/doctor/case') return <DoctorCase go={go} confirmed={confirmed} setConfirmed={setConfirmed} state={state} />;
