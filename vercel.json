@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "pnpm --filter @workspace/medikiosk build",
-  "outputDirectory": "artifacts/medikiosk/dist/public",
-  "framework": "vite",
+  "outputDirectory": "artifacts/medikiosk/dist",
   "rewrites": [
     {
       "source": "/(.*)",
@@ -10,3 +9,4 @@
     }
   ]
 }
+
